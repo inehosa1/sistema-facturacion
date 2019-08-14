@@ -2,7 +2,17 @@ from django import forms
 
 from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
 
-class CategoriaForm(forms.ModelForm):
+
+class FormBase(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class':'form-control'
+            })        
+
+class CategoriaForm(FormBase):
 
     class Meta:
         model = Categoria
@@ -15,14 +25,7 @@ class CategoriaForm(forms.ModelForm):
             'descripcion': forms.TextInput()
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control'
-            })
-
-class SubCategoriaForm(forms.ModelForm):
+class SubCategoriaForm(FormBase):
     categoria = forms.ModelChoiceField(
         queryset=Categoria.objects.filter(estado=True).order_by('descripcion')
     )
@@ -40,14 +43,9 @@ class SubCategoriaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control'
-            })
-
         self.fields['categoria'].empty_label = 'Seleccione categoría'
 
-class MarcaForm(forms.ModelForm):
+class MarcaForm(FormBase):
     
     class Meta:
         model = Marca
@@ -59,18 +57,8 @@ class MarcaForm(forms.ModelForm):
         widget = {
             'descripcion': forms.TextInput()
         }
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control'
-            })        
-
-
-
-
-class UnidadMedidaForm(forms.ModelForm):
+        
+class UnidadMedidaForm(FormBase):
     
     class Meta:
         model = UnidadMedida
@@ -83,15 +71,7 @@ class UnidadMedidaForm(forms.ModelForm):
             'descripcion': forms.TextInput()
         }
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control'
-            })        
-
-
-class ProductoForm(forms.ModelForm):
+class ProductoForm(FormBase):
     
     class Meta:
         model = Producto
@@ -109,9 +89,5 @@ class ProductoForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control'
-            })   
         self.fields['ultima_compra'].widget.attrs['readonly'] = True
         self.fields['existencia'].widget.attrs['readonly'] = True
