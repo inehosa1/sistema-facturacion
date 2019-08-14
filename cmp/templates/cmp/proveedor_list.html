@@ -42,6 +42,8 @@
                                 <td>{{ item.correo }}</td>
                                 <td>                                
                                     <button onclick="return abrir_modal('{% url 'cmp:proveedor_edit' item.id %}')" href="#" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></button>
+                                    <button onclick="return abrir_modal('{% url 'cmp:proveedor_inactivar' item.id %}')" href="#" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></button>
+                                    
                                     {% comment %} <a href="{% url 'inv:proveedor_inactivar' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a> {% endcomment %}
                                 </td>
                             </tr>                    
