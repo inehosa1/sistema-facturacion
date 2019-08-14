@@ -14,12 +14,14 @@ from base.views import SinPrivilegios
 
 
 
+
+
 class CategiaView(SinPrivilegios, generic.ListView):
     permission_required = 'inv.view_categoria'
     model = Categoria
     template_name = 'inv/categoria_list.html'    
 
-class CategoriaNew(SuccessMessageMixin, generic.CreateView):
+class CategoriaNew(SinPrivilegios, SuccessMessageMixin, generic.CreateView):
     permission_required = 'inv.add_categoria'
     model = Categoria
     template_name = 'inv/categoria_form.html'    
@@ -31,7 +33,7 @@ class CategoriaNew(SuccessMessageMixin, generic.CreateView):
         form.instance.uc = self.request.user        
         return super().form_valid(form)
 
-class CategoriaEdit(SuccessMessageMixin, generic.UpdateView):
+class CategoriaEdit(SinPrivilegios, SuccessMessageMixin, generic.UpdateView):
     permission_required = 'inv.change_categoria'
     model = Categoria
     template_name = 'inv/categoria_form.html'    
@@ -43,7 +45,7 @@ class CategoriaEdit(SuccessMessageMixin, generic.UpdateView):
         form.instance.um = self.request.user.id       
         return super().form_valid(form)
 
-class CategoriaDel(generic.DeleteView):
+class CategoriaDel(SinPrivilegios, generic.DeleteView):
     permission_required = 'inv.delete_categoria'
     model = Categoria
     template_name = 'inv/catalogos_del.html'    
@@ -55,7 +57,7 @@ class SubCategiaView(SinPrivilegios, generic.ListView):
     model = SubCategoria
     template_name = 'inv/subcategoria_list.html'    
 
-class SubCategoriaNew(generic.CreateView):
+class SubCategoriaNew(SinPrivilegios, generic.CreateView):
     permission_required = 'inv.add_subcategoria'
     model = SubCategoria
     template_name = 'inv/subcategoria_form.html'    
@@ -66,7 +68,7 @@ class SubCategoriaNew(generic.CreateView):
         form.instance.uc = self.request.user        
         return super().form_valid(form)
 
-class SubCategoriaEdit(generic.UpdateView):
+class SubCategoriaEdit(SinPrivilegios, generic.UpdateView):
     permission_required = 'inv.change_subcategoria'
     model = SubCategoria
     template_name = 'inv/subcategoria_form.html'    
@@ -77,7 +79,7 @@ class SubCategoriaEdit(generic.UpdateView):
         form.instance.um = self.request.user.id       
         return super().form_valid(form)
 
-class SubCategoriaDel(generic.DeleteView):
+class SubCategoriaDel(SinPrivilegios, generic.DeleteView):
     permission_required = 'inv.delete_subcategoria'
     model = SubCategoria
     template_name = 'inv/catalogos_del.html'    
@@ -90,7 +92,7 @@ class MarcaView(SinPrivilegios, generic.ListView):
     model = Marca
     template_name = 'inv/marca_list.html'    
 
-class MarcaNew(generic.CreateView):
+class MarcaNew(SinPrivilegios, generic.CreateView):
     permission_required = 'inv.add_marca'
     model = Marca
     template_name = 'inv/marca_form.html'    
@@ -101,7 +103,7 @@ class MarcaNew(generic.CreateView):
         form.instance.uc = self.request.user        
         return super().form_valid(form)
 
-class MarcaEdit(generic.UpdateView):
+class MarcaEdit(SinPrivilegios, generic.UpdateView):
     permission_required = 'inv.change_marca'
     model = Marca
     template_name = 'inv/marca_form.html'    
@@ -133,12 +135,12 @@ def marca_inactiva(request, id):
 
     return render(request, template_name, context)
 
-class UnidadMedidaView(generic.ListView):
+class UnidadMedidaView(SinPrivilegios, generic.ListView):
     permission_required = 'inv.view_unidadmedida'
     model = UnidadMedida
     template_name = 'inv/unidadmedida_list.html'    
 
-class UnidadMedidaNew(generic.CreateView):
+class UnidadMedidaNew(SinPrivilegios, generic.CreateView):
     permission_required = 'inv.add_unidadmedida'
     model = UnidadMedida
     template_name = 'inv/unidadmedida_form.html'    
@@ -149,7 +151,7 @@ class UnidadMedidaNew(generic.CreateView):
         form.instance.uc = self.request.user        
         return super().form_valid(form)
 
-class UnidadMedidaEdit(generic.UpdateView):
+class UnidadMedidaEdit(SinPrivilegios, generic.UpdateView):
     permission_required = 'inv.change_unidadmedida'
     model = UnidadMedida
     template_name = 'inv/unidadmedida_form.html'    
@@ -180,12 +182,12 @@ def unidadmedida_inactiva(request, id):
 
     return render(request, template_name, context)
 
-class ProductoView(generic.ListView):
+class ProductoView(SinPrivilegios, generic.ListView):
     permission_required = 'inv.view_producto'
     model = Producto
     template_name = 'inv/producto_list.html'    
 
-class ProductoNew(generic.CreateView):
+class ProductoNew(SinPrivilegios, generic.CreateView):
     permission_required = 'inv.add_producto'
     model = Producto
     template_name = 'inv/producto_form.html'    
@@ -196,7 +198,7 @@ class ProductoNew(generic.CreateView):
         form.instance.uc = self.request.user        
         return super().form_valid(form)
 
-class ProductoEdit(generic.UpdateView):
+class ProductoEdit(SinPrivilegios, generic.UpdateView):
     permission_required = 'inv.change_producto'
     model = Producto
     template_name = 'inv/producto_form.html'    
